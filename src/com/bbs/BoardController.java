@@ -152,7 +152,6 @@ public class BoardController {
 		request.setAttribute("pageNum", currentPage);
 		request.setAttribute("totalPage", totalPage);
 		request.setAttribute("totalDataCount", totalDataCount);
-		System.out.println(totalDataCount);
 		request.setAttribute("pageIndexList", myPage.pageIndexList(currentPage, totalPage, urlList));
 		
 		return "board/list";
@@ -244,7 +243,25 @@ public class BoardController {
 		
 	}
 		
+	
+	@RequestMapping(value="/bbs/updated.action",method= {RequestMethod.GET,RequestMethod.POST})
+	public String updated(BoardCommand command,HttpServletRequest request) throws Exception{
+		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
+		String pageNum = request.getParameter("pageNum");
 		
+		BoardCommand dto = (BoardCommand)dao.getReadData("bbs.readData",boardNum);
+
+		if(command.getMode()==null || command.getMode().equals("")) {
+			request.setAttribute("dto", dto);
+			request.setAttribute("pageNum", pageNum);
+			request.setAttribute("mode", "update");
+			return "board/created";
+		}
+		
+		dao.updateData("bbs.updateData", command);
+		return "redirect:/bbs/article.action?pageNum=" + pageNum + "&boardNum=" + boardNum;
+		
+	}	
 		
 	
 }

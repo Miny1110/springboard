@@ -82,9 +82,10 @@
 		}
 		f.pwd.value = str;
 		
-		if(f.mode.value="insert"){
+		
+		if(f.mode.value=="insert"){
 			f.action = "<%=cp%>/bbs/created.action";
-		}else if(f.mode.value="update"){
+		}else if(f.mode.value=="update"){
 			f.action = "<%=cp%>/bbs/updated.action";
 		}
 		
@@ -151,7 +152,7 @@
 				<dl>
 					<dt>패스워드</dt>
 					<dd>
-						<input type="text" name="pwd" value="${dtt.pwd }"
+						<input type="text" name="pwd" value="${dto.pwd }"
 						size="35" maxlength="7" class="boxTF">
 						&nbsp;(게시물 수정 및 삭제시 필요!!)
 					</dd>
@@ -169,8 +170,15 @@
 			<input type="hidden" name="pageNum" value="${pageNum }">
 			<input type="hidden" name="mode" value="${mode }">
 		
-			<input type="button" value=" 등록하기 "
-			class="btn2" onclick="sendIt();" />
+			<c:if test="${mode=='insert' }">
+				<input type="button" value=" 등록하기 "
+				class="btn2" onclick="sendIt();" />
+			</c:if>
+			<c:if test="${mode=='update' }">
+				<input type="button" value=" 수정하기 "
+				class="btn2" onclick="sendIt();" />
+			</c:if>
+			
 			<input type="reset" value=" 다시입력 " 
 			class="btn2" onclick="document.myForm.subject.focus();"/>
 			<input type="button" value=" 작성취소 "
