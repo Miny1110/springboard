@@ -47,20 +47,17 @@
 
 
 <select id="readData" parameterClass="int" resultClass="boardDTO">
-	select boardNum,name,pwd,email,subject,content,ipAddr,
-	groupNum,depth,orderNo,parent,hitCount,created
-	from bbs where boardNum=#boardNum#
+	select boardNum,name,pwd,email,subject,content,ipAddr,hitCount,created
+	from sbbs where boardNum=#boardNum#
 </select>
 
 
 <select id="preReadData" parameterClass="map" resultClass="boardDTO">
 	select data.* from (
-	select boardNum,subject from bbs
+	select boardNum,subject from sbbs
 	where ($searchKey$ like '%'||#searchValue#||'%') and 
 <![CDATA[	
-	((groupNum=#groupNum# and orderNo<#orderNo#) 
-	or (groupNum>#groupNum#))
-	order by groupNum asc, orderNo desc) data
+	(boardNum>#boardNum#) order by boardNum asc) data
 	where rownum=1
 ]]>
 </select>
@@ -68,22 +65,17 @@
 
 <select id="nextReadData" parameterClass="map" resultClass="boardDTO">
 	select data.* from (
-	select boardNum,subject from bbs
+	select boardNum,subject from sbbs
 	where ($searchKey$ like '%'||#searchValue#||'%') and 
 <![CDATA[	
-	((groupNum=#groupNum# and orderNo>#orderNo#)
-	or (groupNum<#groupNum#))
-	order by groupNum desc, orderNo asc) data
+	(boardNum<#boardNum#) order by boardNum desc) data
 	where rownum=1
 ]]>
-<!-- ((groupNum=#groupNum# and orderNo>#orderNo#) : 같은 그룹끼리
-or (groupNum<#groupNum#)) : 그룹 다를때 -->
-
 </select>
 
 
 <update id="updateData" parameterClass="boardDTO">
-	update bbs set name=#name#,subject=#subject#,email=#email#,
+	update sbbs set name=#name#,subject=#subject#,email=#email#,
 	content=#content#,pwd=#pwd# where boardNum=#boardNum#
 </update>
 
@@ -95,9 +87,7 @@ or (groupNum<#groupNum#)) : 그룹 다를때 -->
 
 
 <delete id="deleteData" parameterClass="int">
-	delete bbs where boardNum in
-	(select boardNum from bbs start with boardNum=#boardNum#
-	connect by prior boardNum=parent)
+	delete sbbs where boardNum=#boardNum#
 </delete>
 
 

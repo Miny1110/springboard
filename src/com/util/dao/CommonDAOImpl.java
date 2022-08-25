@@ -29,9 +29,10 @@ public class CommonDAOImpl implements CommonDAO{
 	@Autowired
 	private SqlMapClientTemplate sqlMapClientTemplate;
 	
-	public void setSqlMapClientTemplate(SqlMapClientTemplate sqlMapClientTemplate) {
+	/**@Autowired를 쓰면 아래 코드가 필요하지 않다.*/
+	/*public void setSqlMapClientTemplate(SqlMapClientTemplate sqlMapClientTemplate) {
 		this.sqlMapClientTemplate = sqlMapClientTemplate;
-	}
+	}*/
 
 	
 	@Override

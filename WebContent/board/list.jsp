@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 	String cp = request.getContextPath();
@@ -18,7 +19,7 @@
 		
 		var f = document.searchForm;
 		
-		f.action = "<%=cp%>/bbs/list/action";
+		f.action = "<%=cp%>/bbs/list.action";
 		f.submit();
 		
 	}
@@ -35,14 +36,14 @@
 
 	<div id="bbsList_header">
 		<div id="leftHeader">
-			<form action="" method="get" name="searchForm">
+			<form action="" method="post" name="searchForm">
 				<select name="searchKey" class="selectField">	<!-- searchKey : 카테고리 고르기 -->
 					<option value="subject">제목</option>
 					<option value="name">작성자</option>
 					<option value="content">내용</option>
 				</select>
 				<input type="text" name="searchValue" class="textField"/> 	<!-- searchValue : 게시글의 내용으로 찾기 -->
-				<input type="button" value=" 검 색 " class="btn2" onclick=""/>
+				<input type="button" value=" 검 색 " class="btn2" onclick="searchData();"/>
 			</form>
 		</div>
 		
@@ -66,18 +67,28 @@
 		</div>
 		
 		<div id="lists">
+		
+		<c:forEach var="dto" items="${lists }">
 			<dl>
-				<dd class="num">1</dd>
-				<dd class="subject">게시판</dd>
-				<dd class="name">승간</dd>
-				<dd class="created">2022-07-21</dd>
-				<dd class="hitCount">10</dd>
+				<dd class="num">${dto.listNum }</dd>
+				<dd class="subject">
+				<a href="${urlArticle }&boardNum=${dto.boardNum}">${dto.subject }</a></dd>
+				<dd class="name">${dto.name}</dd>
+				<dd class="created">${dto.created }</dd>
+				<dd class="hitCount">${dto.hitCount }</dd>
 			</dl>
+		</c:forEach>
+		
 		</div>
 		
 		<div id="footer">
 			<p>
-				1 2 3
+				<c:if test="${totalDataCount!=0 }">
+					${pageIndexList }
+				</c:if>
+				<c:if test="${totalDataCount==0 }">
+					등록된 게시물이 없습니다.
+				</c:if>
 			</p>		
 		</div>
 	</div>
