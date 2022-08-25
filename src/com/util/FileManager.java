@@ -4,20 +4,26 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Calendar;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
 
+
+@Service("fileManager")
 public class FileManager {
 	
 	//파일 업로드
-	public static String doFileUpload(File upload,String originalFileName, String path) throws Exception {
+	/**스프링의 file은 InputStream이 관리한다.*/
+	public static String doFileUpload(InputStream is,String originalFileName, String path) throws Exception {
 		
 		String newFileName;
 		
-		if(upload==null) {
+		if(is==null) {
 			return null;
 		}
 		
@@ -52,18 +58,8 @@ public class FileManager {
 		
 		String fullFilePath = path + File.separator + newFileName;
 		
-		//Struts2의 파일 업로드
-		FileInputStream fis = new FileInputStream(upload);
-		FileOutputStream fos = new FileOutputStream(fullFilePath);
-		
-		int data = 0;
-		byte[] buffer = new byte[1024];
-		while((data=fis.read(buffer, 0, 1024))!=-1) {
-			fos.write(buffer,0,data);
-		}		
-		
-		fis.close();
-		fos.close();
+		/**Spring의 파일 업로드*/
+		FileCopyUtils.copy(is, new FileOutputStream(fullFilePath));		
 		
 		return newFileName;
 		

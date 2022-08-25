@@ -1,5 +1,7 @@
 package com.util;
 
+import org.springframework.stereotype.Service;
+
 /*
 dataCount : 전체 데이터의 개수(34개)
 numPerPage : 한 화면에 표시할 데이터의 개수(3개)
@@ -11,6 +13,7 @@ currentPageSetup : 이전 버튼을 클릭하면 나오는 페이지
 page : page index 숫자
 */
 
+@Service("myPage")
 public class MyPage {
 
 	//전체 페이지의 개수
