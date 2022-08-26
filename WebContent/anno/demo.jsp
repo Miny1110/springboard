@@ -16,6 +16,7 @@
 
 아이디: <input type="text" name="userId"><br/>
 이름: <input type="text" name="userName"><br/>
+<!-- 컨트롤러에서 검사하는 것은 mode가 널값이냐 아니냐이기 때문에, value값이 save여도, insert여도 상관없다 -->
 <input type="hidden" name="mode" value="save">
 <input type="submit" value="로그인">
 

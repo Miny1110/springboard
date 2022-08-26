@@ -34,7 +34,10 @@ public class TestController {
 			method= {RequestMethod.POST, RequestMethod.GET})
 	public String save(TestCommand command,HttpServletRequest request) {
 		
-		/**처음 실행할 때에는 command에 데이터가 없다*/
+		/**처음 실행할 때에는 command에 데이터가 없다
+		 * 사용자가 데이터를 입력하고 버튼을 눌러야 데이터가 들어가기 때문
+		 * 그래서 처음에는 데이터가 없어서 입력창이 뜨고,
+		 * 데이터를 입력한 후에 버튼을 누르면 데이터가 들어갔기 때문에 result 페이지가 뜬다*/
 		if(command==null || command.getMode()==null || command.getMode().equals("")) {
 			return "anno/test";
 		}
@@ -47,6 +50,8 @@ public class TestController {
 		return "anno/result";
 	}
 	
+	/**command로 변수 전체를 받는 것이 아니라,
+	 * 받고 싶은 객체만 따로따로 받을 수도 있다. (하지만 이렇게 받는 경우는 드물다)*/
 	@RequestMapping(value="/demo/demo.action", 
 			method= {RequestMethod.POST, RequestMethod.GET})
 	public String demo(String userId,String userName,String mode,

@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /** 
- * @ Controller가 객체생성을 해준다
- * 기본적으로 객체명은 클래스명과 동일하게(소문자로) 생성되는데,
+ * @Controller가 객체생성을 해준다
+ * 기본적으로 객체명은 클래스명과 동일하게(첫글자 소문자로) 생성되는데,
  * 만약 다른 이름으로 생성하고 싶다면 컨트롤러 옆 괄호에 객체명을 적어주면 된다
  * MainController com.anno.mainCotroller = new MainController(); 와 같다
  * 패키지명처럼 작성 > 같은 컨트롤러로 여러 객체를 생성했을 때 이름 중복을 방지할 수 있다

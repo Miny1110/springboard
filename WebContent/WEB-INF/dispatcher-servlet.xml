@@ -24,6 +24,8 @@
 <context:component-scan base-package="*" scoped-proxy="no"/>
 
 <!-- 어노테이션을 사용하기 위한 컨트롤러 등록 -->
+<!-- alwaysUseFullPath : 중간주소 사용 가능하게 함 
+						디폴트값은 false로 되어있음-->
 <bean 
 class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"
 p:alwaysUseFullPath="true">
