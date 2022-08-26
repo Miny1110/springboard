@@ -244,24 +244,28 @@ public class BoardController {
 	}
 		
 	
-	@RequestMapping(value="/bbs/updated.action",method= {RequestMethod.GET,RequestMethod.POST})
-	public String updated(BoardCommand command,HttpServletRequest request) throws Exception{
+	@RequestMapping(value="/bbs/updated.action",method= {RequestMethod.GET})
+	public String updateForm(HttpServletRequest request) throws Exception{
+		
 		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
 		String pageNum = request.getParameter("pageNum");
 		
 		BoardCommand dto = (BoardCommand)dao.getReadData("bbs.readData",boardNum);
 
-		if(command.getMode()==null || command.getMode().equals("")) {
-			request.setAttribute("dto", dto);
-			request.setAttribute("pageNum", pageNum);
-			request.setAttribute("mode", "update");
-			return "board/created";
-		}
+		request.setAttribute("dto", dto);
+		request.setAttribute("pageNum", pageNum);
+		request.setAttribute("mode", "update");
+		
+		return "board/created";
+	}	
+	
+	
+	@RequestMapping(value="/bbs/updated.action",method= {RequestMethod.POST})
+	public String updateSubmit(BoardCommand command,
+			HttpServletRequest request) throws Exception{
 		
 		dao.updateData("bbs.updateData", command);
-		return "redirect:/bbs/article.action?pageNum=" + pageNum + "&boardNum=" + boardNum;
 		
-	}	
-		
-	
+		return "redirect:/bbs/list.action?pageNum=" + command.getPageNum();
+	}
 }

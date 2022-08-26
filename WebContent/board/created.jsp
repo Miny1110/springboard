@@ -173,16 +173,17 @@
 			<c:if test="${mode=='insert' }">
 				<input type="button" value=" 등록하기 "
 				class="btn2" onclick="sendIt();" />
+				<input type="reset" value=" 다시입력 " 
+				class="btn2" onclick="document.myForm.subject.focus();"/>
+				<input type="button" value=" 작성취소 "
+				class="btn2" onclick="javascript:location.href='<%=cp %>/bbs/list.action';"/>
 			</c:if>
 			<c:if test="${mode=='update' }">
 				<input type="button" value=" 수정하기 "
 				class="btn2" onclick="sendIt();" />
+				<input type="button" value=" 수정취소 "
+				class="btn2" onclick="javascript:location.href='<%=cp %>/bbs/list.action?pageNum=${pageNum }';"/>
 			</c:if>
-			
-			<input type="reset" value=" 다시입력 " 
-			class="btn2" onclick="document.myForm.subject.focus();"/>
-			<input type="button" value=" 작성취소 "
-			class="btn2" onclick="javascript:location.href='<%=cp %>/bbs/list.action';"/>
 		</div>
 	
 	</form>
