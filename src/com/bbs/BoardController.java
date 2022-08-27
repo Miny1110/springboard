@@ -24,6 +24,7 @@ import com.util.dao.CommonDAO;
  * 보낼 때: 인코딩
  * */
 
+/** @Controller : BoardController 객체 생성  */
 @Controller("bbs.boardController")
 public class BoardController {
 
@@ -232,13 +233,21 @@ public class BoardController {
 	public String deleted(HttpServletRequest request) throws Exception{
 		
 		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
+		/**글 삭제 후 원래 보고있던 페이지로 나가려고 pageNum 받음*/
 		String pageNum = request.getParameter("pageNum");
 		
 		dao.deleteData("bbs.deleteData", boardNum);
 		
+		/**pageNum을 가지고 나가는 방법
+		 * 1. session을 사용한다. 리턴 주소에 ?pageNum= 을 작성하지 않아도 된다.
+		 * 		list부분 메소드의 session이 데이터를 받는다.
+		 * 		주소창에 pageNum 정보가 보이지 않는다.*/
 		/*HttpSession session = request.getSession();
 		session.setAttribute("pageNum", pageNum);*/
 		
+		/**pageNum을 가지고 나가는 방법
+		 * 2. 주소에 적어준다. list부분 메소드의 getParameter가 데이터를 받는다.
+		 * 		주소창에 pageNum에 대한 정보가 보인다.*/
 		return "redirect:/bbs/list.action?pageNum=" + pageNum;
 		
 	}

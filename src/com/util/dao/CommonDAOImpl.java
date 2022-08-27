@@ -20,11 +20,11 @@ import org.springframework.stereotype.Repository;
 	- @Autowired 어노테이션은 Spring에서 의존관계를 자동으로 설정
 */
 
-/**@Repository가 CommonDAOImpl 객체 생성*/
+/**@Repository가 CommonDAOImpl 객체 생성 (dao라는 이름으로 생성)*/
 @Repository("dao")
 public class CommonDAOImpl implements CommonDAO{
 	
-	/**xml에서 sqlMapClientTemplate과 이름이 같은 걸 가져와
+	/**applicationContext.xml에서 sqlMapClientTemplate과 이름이 같은 걸 가져와
 	 * bean의 id와 변수명이 동일해야 찾을 수 있다. */
 	@Autowired
 	private SqlMapClientTemplate sqlMapClientTemplate;
